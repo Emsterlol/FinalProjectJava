@@ -1,33 +1,38 @@
-function generateMealPlan() {
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const goal = document.getElementById('goal').value;
+// JS Code
 
-    // Validate email code
-    if (!isValidEmail(email)) {
-        alert('Please enter a valid email address.');
+// My Events
+document.getElementById("generateButton").addEventListener('click', myWindow);
+document.getElementById("clearButton").addEventListener('click', clearScreen);
+document.getElementById("printButton").addEventListener('click', printPage);
+
+// The Function to open the new window with the user input
+function myWindow() {
+    var visitorName = document.getElementById("name").value;
+    var visitorGoal = document.getElementById("goal").value;
+
+    // Check if any of the fields are empty
+    if (visitorName === "" || visitorGoal === "") {
+        alert("Please fill out all the form fields before generating the meal plan.");
         return;
     }
 
-    // Generate meal plan HTML NOT FINISHED
-    const mealPlanHTML = `
-        <h2>Weekly Meal Plan for ${name}</h2>
-        <p>Email: ${email}</p>
-        <p>Goal for the Week: ${goal}</p>
-    `;
+    var myText = "<html>\n<head>\n<title>Meal Plan:</title>\n</head>\n<body>\n";
+    myText += "Hello " + visitorName + ", here is your meal plan!<br>";
+    myText += "Plan: " + visitorGoal + "<br><br>";
+    myText += "</body>\n</html>";
 
-    const newWindow = window.open();
-    newWindow.document.write(mealPlanHTML);
-}
-// Clear form code
-function clearMealPlan() {
-    document.getElementById('name').value = '';
-    document.getElementById('email').value = '';
-    document.getElementById('goal').value = '';
+    var flyWindow = window.open('about:blank', 'myPop', 'width=400,height=200,left=200,top=200');
+    flyWindow.document.write(myText);
 }
 
-function isValidEmail(email) {
-    // Email validation code
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+// My functions to clear the words or print the website
+
+function clearScreen() {
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("goal").value = "";
+}
+
+function printPage() {
+    window.print();
 }
